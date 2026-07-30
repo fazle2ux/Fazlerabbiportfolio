@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Md Fazle Rabbi — Tech Tutorial Video Creator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0d14;
+    --bg-elevated:#11151f;
+    --card:#141926;
+    --border: rgba(139,147,167,0.14);
+    --border-bright: rgba(124,140,255,0.35);
+    --text:#e9ecf4;
+    --muted:#8b93a7;
+    --blue:#5b7cff;
+    --purple:#9b5de5;
+    --green:#4ade80;
+    --glow: 0 0 40px rgba(91,124,255,0.25);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--purple);color:#fff;}
+
+  /* background ambience */
+  body::before{
+    content:'';
+    position:fixed; inset:0;
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -5%, rgba(91,124,255,0.16), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 90% 15%, rgba(155,93,229,0.14), transparent 60%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px; position:relative; z-index:1;}
+
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif; letter-spacing:-0.02em;}
+
+  a{color:inherit; text-decoration:none;}
+
+  code, .mono{font-family:'JetBrains Mono',monospace;}
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter:blur(14px);
+    background:rgba(10,13,20,0.7);
+    border-bottom:1px solid var(--border);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:64px;}
+  .logo{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.05rem; display:flex; align-items:center; gap:8px;}
+  .logo .dot{width:8px;height:8px;border-radius:50%;background:var(--green); box-shadow:0 0 10px var(--green);}
+  .nav-links{display:flex; gap:32px; font-size:0.9rem; color:var(--muted);}
+  .nav-links a:hover{color:var(--text);}
+  .nav-cta{
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    padding:9px 18px; border-radius:8px; font-size:0.85rem; font-weight:600;
+    box-shadow:0 4px 20px rgba(91,124,255,0.3);
+  }
+  @media (max-width:720px){ .nav-links{display:none;} }
+
+  /* HERO */
+  header.hero{padding:88px 0 60px;}
+  .hero-grid{display:grid; grid-template-columns:1.1fr 1fr; gap:56px; align-items:center;}
+  @media (max-width:900px){ .hero-grid{grid-template-columns:1fr;} }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--green);
+    border:1px solid rgba(74,222,128,0.3); background:rgba(74,222,128,0.06);
+    padding:6px 12px; border-radius:20px; margin-bottom:22px;
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--green); box-shadow:0 0 8px var(--green); animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+
+  h1.title{font-size:3.1rem; font-weight:700; line-height:1.1; margin-bottom:20px;}
+  h1.title .grad{background:linear-gradient(135deg,var(--blue),var(--purple)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  @media (max-width:560px){ h1.title{font-size:2.2rem;} }
+
+  .hero-sub{color:var(--muted); font-size:1.05rem; max-width:480px; margin-bottom:32px;}
+
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    padding:13px 24px; border-radius:9px; font-weight:600; font-size:0.92rem;
+    display:inline-flex; align-items:center; gap:8px; transition:transform 0.15s ease, box-shadow .15s ease;
+  }
+  .btn-primary{background:linear-gradient(135deg,var(--blue),var(--purple)); box-shadow:0 6px 24px rgba(91,124,255,0.35);}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 30px rgba(91,124,255,0.45);}
+  .btn-ghost{border:1px solid var(--border); color:var(--text);}
+  .btn-ghost:hover{border-color:var(--border-bright); background:rgba(124,140,255,0.06);}
+
+  /* terminal */
+  .terminal{
+    background:var(--bg-elevated); border:1px solid var(--border);
+    border-radius:12px; box-shadow:0 20px 60px rgba(0,0,0,0.5), var(--glow);
+    overflow:hidden;
+  }
+  .term-bar{display:flex; align-items:center; gap:7px; padding:12px 16px; border-bottom:1px solid var(--border);}
+  .term-bar span{width:11px;height:11px;border-radius:50%;}
+  .term-bar span:nth-child(1){background:#ff5f56;}
+  .term-bar span:nth-child(2){background:#ffbd2e;}
+  .term-bar span:nth-child(3){background:#27c93f;}
+  .term-title{margin-left:8px; font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--muted);}
+  .term-body{padding:22px 20px; font-family:'JetBrains Mono',monospace; font-size:0.86rem; min-height:220px;}
+  .term-body .ln{color:var(--muted); margin-right:14px; user-select:none;}
+  .k{color:#c792ea;} .s{color:#4ade80;} .p{color:#8b93a7;} .f{color:#5b7cff;} .c{color:#6b7280;}
+  #typed-line{border-right:2px solid var(--blue); animation:blink 0.9s step-end infinite;}
+  @keyframes blink{50%{border-color:transparent;}}
+
+  /* SECTIONS */
+  section{padding:80px 0;}
+  .section-head{margin-bottom:44px;}
+  .section-tag{font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--blue); margin-bottom:10px; display:block;}
+  .section-head h2{font-size:2rem;}
+
+  /* stats */
+  .stats-bar{
+    display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--border);
+    border-radius:14px; overflow:hidden; background:var(--card);
+  }
+  .stat{padding:26px 18px; text-align:center; border-right:1px solid var(--border);}
+  .stat:last-child{border-right:none;}
+  .stat .num{font-family:'Space Grotesk',sans-serif; font-size:1.9rem; font-weight:700; background:linear-gradient(135deg,var(--blue),var(--purple)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .stat .lbl{color:var(--muted); font-size:0.8rem; margin-top:4px;}
+  @media (max-width:700px){ .stats-bar{grid-template-columns:repeat(2,1fr);} .stat:nth-child(2){border-right:none;} .stat{border-bottom:1px solid var(--border);} }
+
+  /* about */
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start;}
+  @media (max-width:800px){ .about-grid{grid-template-columns:1fr;} }
+  .about-grid p{color:var(--muted); margin-bottom:16px;}
+  .about-grid strong{color:var(--text);}
+
+  .skill-tags{display:flex; flex-wrap:wrap; gap:10px; margin-top:20px;}
+  .tag{
+    font-family:'JetBrains Mono',monospace; font-size:0.8rem;
+    border:1px solid var(--border); padding:7px 13px; border-radius:7px; color:var(--text);
+    background:var(--card);
+  }
+
+  /* videos */
+  .video-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+  @media (max-width:900px){ .video-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .video-grid{grid-template-columns:1fr;} }
+  .video-card{
+    background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden;
+    transition:transform .2s ease, border-color .2s ease;
+  }
+  .video-card:hover{transform:translateY(-4px); border-color:var(--border-bright);}
+  .thumb{
+    aspect-ratio:16/9; position:relative; display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--muted);
+  }
+  .thumb .play{
+    width:46px; height:46px; border-radius:50%; background:rgba(255,255,255,0.08);
+    border:1px solid var(--border-bright); display:flex; align-items:center; justify-content:center;
+    backdrop-filter:blur(4px);
+  }
+  .thumb .play::after{content:''; border-left:12px solid var(--text); border-top:7px solid transparent; border-bottom:7px solid transparent; margin-left:3px;}
+  .thumb img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(0.65);}
+  .thumb .play{position:relative; z-index:2;}
+  .video-card a.thumb-link{display:block;}
+
+  .channel-grid{display:flex; flex-wrap:wrap; gap:12px;}
+  .channel-pill{
+    display:flex; align-items:center; gap:9px;
+    border:1px solid var(--border); background:var(--card); border-radius:10px;
+    padding:12px 16px; font-size:0.9rem; font-weight:600;
+  }
+  .channel-pill .avatar{
+    width:26px; height:26px; border-radius:7px; flex-shrink:0;
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    display:flex; align-items:center; justify-content:center; font-size:0.7rem; font-weight:700; color:#fff;
+  }
+
+  .platform-row{display:flex; gap:12px; margin-top:20px; flex-wrap:wrap;}
+  .platform-chip{
+    display:flex; align-items:center; gap:8px; border:1px solid var(--border); background:var(--card);
+    padding:10px 15px; border-radius:9px; font-size:0.85rem; color:var(--muted);
+  }
+  .platform-chip strong{color:var(--text); font-weight:600;}
+  .th1{background:linear-gradient(135deg,#1a2140,#101423);}
+  .th2{background:linear-gradient(135deg,#241a40,#141023);}
+  .th3{background:linear-gradient(135deg,#102830,#0d1620);}
+  .th4{background:linear-gradient(135deg,#2a1a30,#12101f);}
+  .th5{background:linear-gradient(135deg,#152838,#0f141f);}
+  .th6{background:linear-gradient(135deg,#1e1a38,#111220);}
+  .vc-body{padding:16px 16px 18px;}
+  .vc-body .vtag{font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--purple); margin-bottom:6px; display:block;}
+  .vc-body h4{font-size:0.98rem; font-weight:600; margin-bottom:8px; line-height:1.35;}
+  .vc-meta{display:flex; justify-content:space-between; color:var(--muted); font-size:0.78rem;}
+
+  /* timeline */
+  .timeline{border-left:1px solid var(--border); margin-left:8px;}
+  .tl-item{position:relative; padding:0 0 34px 30px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:''; position:absolute; left:-6.5px; top:2px; width:12px; height:12px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--blue); box-shadow:0 0 12px rgba(91,124,255,0.5);
+  }
+  .tl-date{font-family:'JetBrains Mono',monospace; color:var(--blue); font-size:0.8rem; margin-bottom:4px;}
+  .tl-item h4{font-size:1.02rem; margin-bottom:5px;}
+  .tl-item p{color:var(--muted); font-size:0.92rem;}
+
+  /* contact */
+  .contact-card{
+    background:linear-gradient(135deg, rgba(91,124,255,0.1), rgba(155,93,229,0.08));
+    border:1px solid var(--border-bright); border-radius:18px; padding:56px; text-align:center;
+  }
+  .contact-card h2{font-size:2rem; margin-bottom:14px;}
+  .contact-card p{color:var(--muted); max-width:460px; margin:0 auto 30px;}
+  .social-row{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:26px;}
+  .social-row a{
+    border:1px solid var(--border); padding:10px 18px; border-radius:8px; font-size:0.85rem; color:var(--muted);
+    transition:.15s ease;
+  }
+  .social-row a:hover{color:var(--text); border-color:var(--border-bright);}
+
+  footer{padding:36px 0; text-align:center; color:var(--muted); font-size:0.82rem; border-top:1px solid var(--border); margin-top:40px;}
+  footer .mono{color:#5b6478;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  a:focus-visible, button:focus-visible{outline:2px solid var(--blue); outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo"><span class="dot"></span> Fazle Rabbi</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#channels">Channels</a>
+      <a href="#videos">Work</a>
+      <a href="#journey">Journey</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a class="nav-cta" href="#contact">Hire Me</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> freelancing on upwork since aug 2024</div>
+      <h1 class="title">I make tech how-to<br>videos your <span class="grad">channel needs</span>.</h1>
+      <p class="hero-sub">Hi, I'm Md Fazle Rabbi — a freelance tech tutorial video creator. I script, record, and edit clear how-to videos for YouTube channels across PC, Android, and iPhone, so clients can grow their channel without touching a camera or an editor.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#videos">▶ See My Work</a>
+        <a class="btn btn-ghost" href="#contact">Hire Me on Upwork</a>
+      </div>
+    </div>
+
+    <div class="terminal">
+      <div class="term-bar">
+        <span></span><span></span><span></span>
+        <span class="term-title">creator.js</span>
+      </div>
+      <div class="term-body" id="term-body"></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="stats-bar">
+    <div class="stat"><div class="num">$2K+</div><div class="lbl">Earned on Upwork</div></div>
+    <div class="stat"><div class="num">4</div><div class="lbl">Jobs completed</div></div>
+    <div class="stat"><div class="num">7</div><div class="lbl">Channels worked with</div></div>
+    <div class="stat"><div class="num">Aug '24</div><div class="lbl">Freelancing since</div></div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">01 / about</span>
+      <h2>Learning in public, one video at a time.</h2>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>I started freelancing on Upwork in <strong>August 2024</strong>, making how-to tech videos for YouTube channels that don't have the time or skill to produce their own content. Since then I've completed <strong>4 jobs</strong> and earned <strong>$2K+</strong> on the platform — plus ongoing work directly with clients outside the marketplace.</p>
+        <p>I own a PC, an Android phone, and an iPhone, so I can script, record, and edit tutorials for any platform a client's audience uses — no guesswork, no borrowed screenshots.</p>
+        <div class="platform-row">
+          <div class="platform-chip">💻 <strong>PC</strong> tutorials</div>
+          <div class="platform-chip">🤖 <strong>Android</strong> tutorials</div>
+          <div class="platform-chip">📱 <strong>iPhone</strong> tutorials</div>
+        </div>
+      </div>
+      <div>
+        <p style="color:var(--text); font-weight:600; margin-bottom:8px;">What I do for clients</p>
+        <div class="skill-tags">
+          <span class="tag">Video Scripting</span>
+          <span class="tag">Screen Recording</span>
+          <span class="tag">Video Editing</span>
+          <span class="tag">Voiceover</span>
+          <span class="tag">Thumbnail Design</span>
+          <span class="tag">Tech How-To Videos</span>
+          <span class="tag">App Walkthroughs</span>
+          <span class="tag">Website Demos</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="channels">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">02 / channels</span>
+      <h2>Channels I've created videos for</h2>
+    </div>
+    <div class="channel-grid">
+      <div class="channel-pill"><span class="avatar">HT</span> How to Tech</div>
+      <div class="channel-pill"><span class="avatar">HS</span> How to Simple Way</div>
+      <div class="channel-pill"><span class="avatar">HS</span> How to Simple Tech</div>
+      <div class="channel-pill"><span class="avatar">TF</span> TFN Tech</div>
+      <div class="channel-pill"><span class="avatar">ZT</span> ZT Tech</div>
+      <div class="channel-pill"><span class="avatar">GD</span> Guidr</div>
+      <div class="channel-pill"><span class="avatar">CM</span> Core Method</div>
+    </div>
+  </div>
+</section>
+
+<section id="videos">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">03 / work</span>
+      <h2>Watch my tutorial videos</h2>
+    </div>
+    <div class="video-grid">
+
+      <div class="video-card">
+        <a class="thumb-link" href="https://youtu.be/q7rge-xbRMA" target="_blank" rel="noopener">
+          <div class="thumb th1"><img src="https://img.youtube.com/vi/q7rge-xbRMA/hqdefault.jpg" alt="Tutorial video thumbnail" loading="lazy"><div class="play"></div></div>
+        </a>
+        <div class="vc-body">
+          <span class="vtag">HOW-TO</span>
+          <h4><a href="https://youtu.be/q7rge-xbRMA" target="_blank" rel="noopener">Tech How-To Tutorial</a></h4>
+          <div class="vc-meta"><span>YouTube</span><span>Watch ▶</span></div>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <a class="thumb-link" href="https://youtu.be/AfE62nWa8VE" target="_blank" rel="noopener">
+          <div class="thumb th2"><img src="https://img.youtube.com/vi/AfE62nWa8VE/hqdefault.jpg" alt="Tutorial video thumbnail" loading="lazy"><div class="play"></div></div>
+        </a>
+        <div class="vc-body">
+          <span class="vtag">HOW-TO</span>
+          <h4><a href="https://youtu.be/AfE62nWa8VE" target="_blank" rel="noopener">Tech How-To Tutorial</a></h4>
+          <div class="vc-meta"><span>YouTube</span><span>Watch ▶</span></div>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <a class="thumb-link" href="https://youtu.be/BxSR4xwAR1o" target="_blank" rel="noopener">
+          <div class="thumb th3"><img src="https://img.youtube.com/vi/BxSR4xwAR1o/hqdefault.jpg" alt="Tutorial video thumbnail" loading="lazy"><div class="play"></div></div>
+        </a>
+        <div class="vc-body">
+          <span class="vtag">HOW-TO</span>
+          <h4><a href="https://youtu.be/BxSR4xwAR1o" target="_blank" rel="noopener">Tech How-To Tutorial</a></h4>
+          <div class="vc-meta"><span>YouTube</span><span>Watch ▶</span></div>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <a class="thumb-link" href="https://youtu.be/vpARrwECk2I" target="_blank" rel="noopener">
+          <div class="thumb th4"><img src="https://img.youtube.com/vi/vpARrwECk2I/hqdefault.jpg" alt="Tutorial video thumbnail" loading="lazy"><div class="play"></div></div>
+        </a>
+        <div class="vc-body">
+          <span class="vtag">HOW-TO</span>
+          <h4><a href="https://youtu.be/vpARrwECk2I" target="_blank" rel="noopener">Tech How-To Tutorial</a></h4>
+          <div class="vc-meta"><span>YouTube</span><span>Watch ▶</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="journey">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">04 / journey</span>
+      <h2>How I got here</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">August 2024</div>
+        <h4>Started freelancing on Upwork</h4>
+        <p>Took on my first tech tutorial video project, scripting and editing how-to content for a client's YouTube channel.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2024 – 2025</div>
+        <h4>Completed 4 jobs, earned $2K+</h4>
+        <p>Built a track record delivering how-to and tech tutorial videos for clients, on time and to spec.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Along the way</div>
+        <h4>Worked across 7 YouTube channels</h4>
+        <p>How to Tech, How to Simple Way, How to Simple Tech, TFN Tech, ZT Tech, Guidr, and Core Method — each with its own style and audience.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Today</div>
+        <h4>Taking on new clients</h4>
+        <p>Still creating tutorial videos on Upwork and directly with clients — across PC, Android, and iPhone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-card">
+      <h2>Need a tutorial video made?</h2>
+      <p>Whether it's a website walkthrough, an app demo, or a how-to series — I'll script, record, and edit it for your channel.</p>
+      <a class="btn btn-primary" href="mailto:pentester.fazlerabbi@gmail.com">✉ pentester.fazlerabbi@gmail.com</a>
+      <div class="social-row">
+        <a href="mailto:pentester.fazlerabbi@gmail.com">Email</a>
+        <a href="https://www.upwork.com/freelancers/~0199af9e1e29ae0960?mp_source=share">Upwork Profile</a>
+        <a href="https://www.youtube.com/@bhtg2025">Own YouTube</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="mono">&lt;/&gt;</span> Md Fazle Rabbi · Tech Tutorial Video Creator · since August 2024
+  </div>
+</footer>
+
+<script>
+  const lines = [
+    { html: '<span class="k">const</span> <span class="f">freelancer</span> <span class="p">=</span> {' },
+    { html: '&nbsp;&nbsp;name: <span class="s">"Md Fazle Rabbi"</span>,' },
+    { html: '&nbsp;&nbsp;role: <span class="s">"Tech Tutorial Video Creator"</span>,' },
+    { html: '&nbsp;&nbsp;platform: <span class="s">"Upwork"</span>,' },
+    { html: '&nbsp;&nbsp;since: <span class="s">"2024-08"</span>,' },
+    { html: '&nbsp;&nbsp;devices: [<span class="s">"PC"</span>, <span class="s">"Android"</span>, <span class="s">"iPhone"</span>],' },
+    { html: '&nbsp;&nbsp;earned: <span class="s">"$2K+"</span>,' },
+    { html: '&nbsp;&nbsp;<span class="c">// 4 jobs done, still taking more</span>' },
+    { html: '};' },
+  ];
+
+  const body = document.getElementById('term-body');
+  let li = 0;
+
+  function typeLine() {
+    if (li >= lines.length) return;
+    const row = document.createElement('div');
+    row.innerHTML = '<span class="ln">' + String(li+1).padStart(2,'0') + '</span><span class="content"></span>';
+    body.appendChild(row);
+    const contentSpan = row.querySelector('.content');
+    contentSpan.id = 'typed-line';
+
+    const full = lines[li].html;
+    // type as plain text speed but reveal html progressively via temp text node
+    let i = 0;
+    const plain = full.replace(/<[^>]*>/g, m => '\u0001' + m + '\u0002');
+    const tokens = [];
+    let buf = '';
+    let inTag = false;
+    for (const ch of full) {
+      if (ch === '<') inTag = true;
+      buf += ch;
+      if (ch === '>') inTag = false;
+      if (!inTag) { tokens.push(buf); buf=''; }
+    }
+    if (buf) tokens.push(buf);
+
+    let idx = 0;
+    const interval = setInterval(() => {
+      idx++;
+      contentSpan.innerHTML = tokens.slice(0, idx).join('');
+      if (idx >= tokens.length) {
+        clearInterval(interval);
+        contentSpan.removeAttribute('id');
+        li++;
+        setTimeout(typeLine, 120);
+      }
+    }, 18);
+  }
+  typeLine();
+</script>
+
+</body>
+</html>
