@@ -229,6 +229,43 @@
   footer{padding:36px 0; text-align:center; color:var(--muted); font-size:0.82rem; border-top:1px solid var(--border); margin-top:40px;}
   footer .mono{color:#5b6478;}
 
+  /* comments */
+  .comment-form{ margin-bottom: 48px; }
+  .comment-form .form-row{ display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .comment-form input,
+  .comment-form textarea{
+    width: 100%; background: var(--bg-elevated); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px 16px; font-family: 'Inter', sans-serif;
+    color: var(--text); font-size: 0.9rem; transition: border-color .2s ease;
+  }
+  .comment-form input:focus, .comment-form textarea:focus{ outline: none; border-color: var(--border-bright); }
+  .comment-form input::placeholder, .comment-form textarea::placeholder{ color: var(--muted); }
+  .comment-form textarea{ min-height: 120px; resize: vertical; margin-bottom: 20px; }
+  .comment-form button{ border: none; cursor: pointer; }
+  @media (max-width: 600px) { .comment-form .form-row { grid-template-columns: 1fr; } }
+
+  .comments-list h3{ font-size: 1.5rem; margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 16px;}
+  .comment-item{ display: flex; gap: 20px; margin-bottom: 28px; }
+  .comment-item:last-child{ margin-bottom: 0; }
+  .comment-avatar{ flex-shrink: 0; }
+  .comment-avatar span{
+    width: 42px; height: 42px; border-radius: 50%;
+    background: linear-gradient(135deg,var(--blue),var(--purple));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; font-weight: 700; color: #fff;
+  }
+  .comment-body .meta{ display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+  .comment-body .name{ font-weight: 600; font-size: 0.95rem; }
+  .comment-body .date{ color: var(--muted); font-size: 0.8rem; }
+  .comment-body p{ color: var(--muted); font-size: 0.92rem; line-height: 1.7; }
+  @media (max-width: 500px) {
+    .comment-item{ flex-direction: column; align-items: flex-start; }
+    .comment-avatar{ margin-bottom: 4px; }
+    .comment-avatar span{ width: 36px; height: 36px; font-size: 0.9rem; }
+  }
+
+  footer .mono{color:#5b6478;}
+
   @media (prefers-reduced-motion: reduce){
     *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
   }
@@ -323,13 +360,22 @@
       <h2>Channels I've created videos for</h2>
     </div>
     <div class="channel-grid">
-      <div class="channel-pill"><span class="avatar">HT</span> How to Tech</div>
-      <div class="channel-pill"><span class="avatar">HS</span> How to Simple Way</div>
-      <div class="channel-pill"><span class="avatar">HS</span> How to Simple Tech</div>
-      <div class="channel-pill"><span class="avatar">TF</span> TFN Tech</div>
-      <div class="channel-pill"><span class="avatar">ZT</span> ZT Tech</div>
-      <div class="channel-pill"><span class="avatar">GD</span> Guidr</div>
-      <div class="channel-pill"><span class="avatar">CM</span> Core Method</div>
+      <a class="channel-pill" href="https://www.youtube.com/@howtotechruet" target="_blank" rel="noopener"> 
+      <div class="channel-pill"><span class="avatar">HT</span> How to Tech</div></a>
+      <a class="channel-pill" href="https://www.youtube.com/@TechtorialPoint0" target="_blank" rel="noopener">
+      <div class="channel-pill"><span class="avatar">TP</span> TechtorialPoint</div></a>
+      <a class="channel-pill" href="https://www.youtube.com/@Howtosimpleway" target="_blank" rel="noopener">
+      <div class="channel-pill"><span class="avatar">HS</span> How to Simple Way</div></a>
+      <a class="channel-pill" href="https://www.youtube.com/@howtosimpletech" target="_blank" rel="noopener">
+      <div class="channel-pill"><span class="avatar">HS</span> How to Simple Tech</div></a>
+      <a class="channel-pill" href="https://www.youtube.com/@TFNTECH100" target="_blank" rel="noopener">
+      <div class="channel-pill"><span class="avatar">TF</span> TFN Tech</div></a>
+      <a class="channel-pill" href="https://www.youtube.com/@Tutorialcivil" target="_blank" rel="noopener">
+      <div class="channel-pill"><span class="avatar">ZT</span> ZT Tech</div></a>
+      <a class="channel-pill" href="https://www.youtube.com/@Guidr_official" target="_blank" rel="noopener">
+      <div class="channel-pill"><span class="avatar">GD</span> Guidr</div></a>
+      <a class="channel-pill" href="https://www.youtube.com/@corem3thod" target="_blank" rel="noopener">
+      <div class="channel-pill"><span class="avatar">CM</span> Core Method</div></a>
     </div>
   </div>
 </section>
@@ -347,8 +393,8 @@
           <div class="thumb th1"><img src="https://img.youtube.com/vi/q7rge-xbRMA/hqdefault.jpg" alt="Tutorial video thumbnail" loading="lazy"><div class="play"></div></div>
         </a>
         <div class="vc-body">
-          <span class="vtag">HOW-TO</span>
-          <h4><a href="https://youtu.be/q7rge-xbRMA" target="_blank" rel="noopener">Tech How-To Tutorial</a></h4>
+          <span class="vtag">How to Connect Rithmic to ATAS Trading Platform (Updated 2026 Guide)</span>
+          <h4><a href="https://youtu.be/q7rge-xbRMA" target="_blank" rel="noopener">YT: CORE METHOD</a></h4>
           <div class="vc-meta"><span>YouTube</span><span>Watch ▶</span></div>
         </div>
       </div>
@@ -358,19 +404,19 @@
           <div class="thumb th2"><img src="https://img.youtube.com/vi/AfE62nWa8VE/hqdefault.jpg" alt="Tutorial video thumbnail" loading="lazy"><div class="play"></div></div>
         </a>
         <div class="vc-body">
-          <span class="vtag">HOW-TO</span>
-          <h4><a href="https://youtu.be/AfE62nWa8VE" target="_blank" rel="noopener">Tech How-To Tutorial</a></h4>
+          <span class="vtag">How to Withdraw Money From Worldcoin App 2025 | (Cara MUDAH Withdraw Worldcoin)</span>
+          <h4><a href="https://youtu.be/AfE62nWa8VE" target="_blank" rel="noopener">YT: HOW TO SIMPLE WAY</a></h4>
           <div class="vc-meta"><span>YouTube</span><span>Watch ▶</span></div>
         </div>
       </div>
 
       <div class="video-card">
-        <a class="thumb-link" href="https://youtu.be/BxSR4xwAR1o" target="_blank" rel="noopener">
-          <div class="thumb th3"><img src="https://img.youtube.com/vi/BxSR4xwAR1o/hqdefault.jpg" alt="Tutorial video thumbnail" loading="lazy"><div class="play"></div></div>
+        <a class="thumb-link" href="https://youtu.be/6DFiLlhR6YI?si=470OBOVVmsrIgfHs" target="_blank" rel="noopener">
+          <div class="thumb th3"><img src="https://img.youtube.com/vi/6DFiLlhR6YI/hqdefault.jpg" alt="Tutorial video thumbnail" loading="lazy"><div class="play"></div></div>
         </a>
         <div class="vc-body">
-          <span class="vtag">HOW-TO</span>
-          <h4><a href="https://youtu.be/BxSR4xwAR1o" target="_blank" rel="noopener">Tech How-To Tutorial</a></h4>
+          <span class="vtag">FREE! How to Download and Install Microsoft Office (2026) | Step-by-Step Guide</span>
+          <h4><a href="https://youtu.be/6DFiLlhR6YI?si=470OBOVVmsrIgfHs" target="_blank" rel="noopener">YT: TechtorialPoint</a></h4>
           <div class="vc-meta"><span>YouTube</span><span>Watch ▶</span></div>
         </div>
       </div>
@@ -380,8 +426,8 @@
           <div class="thumb th4"><img src="https://img.youtube.com/vi/vpARrwECk2I/hqdefault.jpg" alt="Tutorial video thumbnail" loading="lazy"><div class="play"></div></div>
         </a>
         <div class="vc-body">
-          <span class="vtag">HOW-TO</span>
-          <h4><a href="https://youtu.be/vpARrwECk2I" target="_blank" rel="noopener">Tech How-To Tutorial</a></h4>
+          <span class="vtag">How to Know If Someone Blocked You on iPhone</span>
+          <h4><a href="https://youtu.be/vpARrwECk2I" target="_blank" rel="noopener">YT: GUIDR</a></h4>
           <div class="vc-meta"><span>YouTube</span><span>Watch ▶</span></div>
         </div>
       </div>
@@ -431,9 +477,30 @@
         <a href="mailto:pentester.fazlerabbi@gmail.com">Email</a>
         <a href="https://www.upwork.com/freelancers/~0199af9e1e29ae0960?mp_source=share">Upwork Profile</a>
         <a href="https://www.youtube.com/@bhtg2025">Own YouTube</a>
+        <a href="https://wa.me/88012458978?text=chat%20">Whatsapp</a>
+        <!-- Elfsight WhatsApp Chat | Untitled WhatsApp Chat -->
+<script src="https://elfsightcdn.com/platform.js" async></script>
+<div class="elfsight-app-2311622c-c199-4e5d-8672-5201383f48a6" data-elfsight-app-lazy></div>
       </div>
     </div>
   </div>
+</section>
+
+<section id="comments">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">05 / comments</span>
+      <h2>Leave a Comment</h2>
+    </div>
+
+    <form class="comment-form" onsubmit="return false;">
+      <div class="form-row">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email (optional)">
+      </div>
+      <textarea name="comment" placeholder="Write your comment here..." required></textarea>
+      <button type="submit" class="btn btn-primary">Post Comment</button>
+    </form>
 </section>
 
 <footer>
